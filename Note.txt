@@ -1,0 +1,92 @@
+System Architecture Explanation
+
+“I implemented a two-VM distributed monitoring system:
+
+🟧 Node VM
+
+Runs the monitoring agent
+
+Collects local network metrics such as:
+
+Bandwidth usage
+
+Packet counts
+
+Active connections
+
+Sends these metrics to the Master using SSH
+
+🟦 Master VM
+
+Runs the central dashboard (Flask + Docker)
+
+Aggregates metrics from all node machines
+
+Performs anomaly detection
+
+Runs automated diagnostics on the node using SSH
+
+Displays all data in a real-time web interface
+
+This design simulates a real network environment using one central monitoring server (Master) and multiple remote servers (Nodes).”
+
+What You Did on the NODE VM (Monitoring Agent)
+
+You can explain:
+
+“On the Node VM, I built a Monitoring Agent using Python (or Bash).
+
+This agent runs inside Docker and performs the following tasks:
+
+Collects network statistics every few seconds
+
+Measures upload/download bandwidth
+
+Counts incoming/outgoing packets
+
+Detects active TCP/UDP connections
+
+Makes the metrics available to the Master VM through SSH
+
+The node behaves like a normal remote server that the Master has to monitor.”
+
+This is exactly what your teacher expects.
+
+🟦 3. What You Did on the MASTER VM (Dashboard + Aggregator)
+
+Explain it like this:
+
+“On the Master VM, I created the central dashboard using Flask.
+The dashboard shows:
+
+Bandwidth graphs
+
+Packet trends
+
+Connection states
+
+Status of each node
+
+The Master VM uses SSH to log into each Node VM and collect their metrics.
+
+All data is sent to the dashboard container and displayed in real time (within 10 seconds).
+
+I also added basic anomaly detection, which checks for:
+
+Sudden spikes in traffic
+
+Abnormal ports
+
+High packet drops
+
+When an anomaly is found, the Master VM automatically runs:
+
+ping
+
+traceroute
+
+ss
+
+netstat
+
+Then it generates a diagnostic report.”
